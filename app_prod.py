@@ -1,8 +1,7 @@
 from flask import Flask,render_template,redirect
-import sqlalchemy
+from waitress import serve
 
-#__name__ is the name of the file
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
 
 @app.route("/squat", methods=["POST"])
 def add():
@@ -16,3 +15,7 @@ def subtract():
 def divide():
     print("Deadlift")
 
+if __name__ == "__main__":
+    print("Started Serving the api")
+    serve(app, host="0.0.0.0", port=7777, threads=3)
+    print("The api server Is Stopped")
